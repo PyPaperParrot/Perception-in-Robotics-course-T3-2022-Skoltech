@@ -21,6 +21,14 @@ class Sam(SlamBase):
         
         self.graph = mrob.FGraph()
         
+        #first node initialization
+        self.x0 = initial_state
+        node0 = self.graph.add_node_pose2d(self.x0)
+        
+        # anchor factor 
+        self.graph.add_factor_1pose_2d(self.x0, node0, )
+
+
 
     def predict(self, u):
         pass
