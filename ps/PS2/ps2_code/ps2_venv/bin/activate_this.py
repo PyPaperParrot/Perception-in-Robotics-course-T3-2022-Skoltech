@@ -5,6 +5,7 @@ This can be used when you must use an existing Python interpreter, not
 the virtualenv bin/python
 """
 
+
 try:
     __file__
 except NameError:
