@@ -73,6 +73,7 @@ def get_cli_args():
     parser.add_argument('-a',
                         '--alphas',
                         nargs=4,
+                        type=float,
                         metavar=('A1', 'A2', 'A3', 'A4'),
                         action='store',
                         help='Squared root of alphas, used for transition noise in action space (M_t). (format: a1 a2 a3 a4).',
@@ -150,6 +151,7 @@ def main():
 
     # weights for covariance action noise R and observation noise Q
     alphas = np.array(args.alphas) **2 # variance of noise R proportional to alphas, see tools/tasks@get_motion_noise_covariance()
+
     bearing_std = args.bearing_std # see also filters/localization_filter.py
 
     mean_prior = np.array([180., 50., 0.])
