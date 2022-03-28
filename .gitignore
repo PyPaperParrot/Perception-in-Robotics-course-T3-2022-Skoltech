@@ -1,3 +1,6 @@
 ps/PS3/PS3_code/venv/*
 ps/PS2/ps2_code/ps2_venv/*
 garbage/*
+ps/PS2/ps2_code/=15.1.0
+ps/PS2/ps2_code/__pycache__/*
+ps/PS3/PS3_code/__pycache__/*
