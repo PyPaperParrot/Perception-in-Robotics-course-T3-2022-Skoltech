@@ -29,6 +29,7 @@ from tools.plot import plot_field
 from tools.plot import plot_observations
 from tools.task import get_dummy_context_mgr
 from tools.task import get_movie_writer
+from slam.sam import Sam
 
 
 import mrob
@@ -122,6 +123,7 @@ def main():
     alphas = np.array(args.alphas) ** 2
     beta = np.array(args.beta)
     beta[1] = np.deg2rad(beta[1])
+    Q = np.diag([*(beta ** 2)])
 
 
     mean_prior = np.array([180., 50., 0.])
@@ -141,6 +143,11 @@ def main():
                                    args.dt)
     else:
         raise RuntimeError('')
+
+    #slam_filter = None
+    if args.filter_name == 'sam':
+        slam_filter = Sam(slam_type='sam', data_association='known', update_type='batch', Q=Q,
+                          initial_state=initial_state, alphas=alphas)
 
     should_show_plots = True if args.animate else False
     should_write_movie = True if args.movie_file else False
@@ -163,9 +170,14 @@ def main():
             z = data.filter.observations[t]
 
             # TODO SLAM predict(u)
-            
+            slam_filter.predict(u)
+
             # TODO SLAM update
+            slam_filter.update(z)
             
+            # TODO SLAM solve
+            slam_filter.solve()
+
             progress_bar.next()
             if not should_update_plots:
                 continue

@@ -38,6 +38,7 @@ class SlamBase(ABC):
         self.update_type = update_type
 
         self.t = 0
+        self.Q = Q
 
         self.state_dim = 3  # The number of state variables: x, y, theta (initially).
         self.obs_dim = 2  # The number of variables per observation: range, bearing.
